@@ -1,0 +1,151 @@
+@charset "utf-8";
+
+*{ margin:0; padding:0; }
+
+section{
+	display:none;
+}
+
+main{
+	border:5px;
+	margin: auto;
+	width: 968px;
+	overflow:hidden;
+}
+
+a:hover{
+text-decoration:none;
+}
+
+h1{
+	background:url(imagenes/logo_home.jpg);
+	width:210px;
+	height:120px;
+	text-indent:-200px;
+	overflow:hidden;
+}
+
+#contenedor{
+	width:960px;
+	height:auto;
+	background-color:white;
+	margin:auto;
+	position:relative;
+}
+
+header, main, footer{
+	padding:20px;
+	box-sizing: border-box;
+}
+
+#Home{
+	text-align:center;
+	width:960px;
+	position:relative;
+	top:50px;
+	color:black;
+	height:700px;
+}
+
+#Sandalias{
+	text-align:center;
+	width:960px;
+	position:relative;
+	color:black; 
+	height:700px;
+}
+#Zapatillas{
+	text-align:center;
+	width:960px;
+	position: relative;
+	color:black; 
+	height:700px;
+}
+
+#Chatitas{
+	text-align:center;
+	width:960px;
+	position: relative;
+	color:black; 
+	height:700px;
+}
+
+#Botas{
+	text-align:center;
+	width:960px;
+	position: relative;
+	color:black; 
+	height:700px;
+}
+
+
+#video{
+ 	position:relative;
+	height:450px;
+	left:-330px;
+	width:960px;
+	margin-left:320px;
+	margin-right:320px;
+}
+
+header{
+	width:960px;
+	background-color:white;
+	padding:0px;
+}
+
+
+header nav ul li{
+	width:120px;
+	background-color: pink;
+	margin:25px 10px 20px 25px;
+	display: inline-block;
+	
+}
+
+header nav ul li a{
+	text-decoration:none;
+	height:40px;
+	line-height:40px;
+	color:white;
+	display:block;
+	text-align:center;
+}
+
+#Redes{
+	position:fixed;
+	bottom:-500px;
+}
+#Redes ul li{
+	list-style-type: none;
+}
+	
+#Redes ul li a{
+	width:48px;
+	height:48px;
+	background:url(imagenes/redes.png);
+	display:inline-block;
+	text-decoration:none;
+	position:relative;
+	left:1000px;
+	bottom:700px;
+}
+
+#Redes #facebook{ background-position:left top; }
+#Redes #twitter{ background-position:-52px top; }
+#Redes #google{ background-position:-104px top; }
+#Redes #youtube{ background-position:-156px top; }
+
+#Redes #facebook:hover{ background-position:left bottom; }
+#Redes #twitter:hover{ background-position:-52px bottom; }
+#Redes #google:hover{ background-position:-104px bottom; }
+#Redes #yoUTUBE:hover{ background-position:-156px bottom; }
+
+
+footer {
+	background-color:white;
+	height:100px;
+	border-top: 5px solid pink;
+}
+	
+	

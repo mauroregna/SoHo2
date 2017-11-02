@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html  
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>SoHo</title>
+	<h:outputStylesheet library="css" name="style.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</h:head>
+
+<h:body>
+<ui:include src="template.xhtml">
+	<h1>Bienvenido!</h1>
+		</ui:include>
+	<h:form>
+    <section>
+        <header>
+            <h2 id="test">Red social corporativa</h2>
+        </header>
+        
+        <article class="container-fluid">
+       <div class="col-md-4 column-index">
+             <img src ="imagenes/redes.png"  height="300" width="350" align="top" ></img>	
+       
+                <p>Canal de comunicacion para que las empresas se comuniquen con los empleados. Esto permite la oportunidad de mantener a los empleados informados, fidelizados y tratando de generar un buen clima laboral.</p>
+				<p>Las empresas van a tener una mejor y mas rapida comunicacion con sus empleados. Ademas van a estar al tanto de que necesidades tienen, si estan conformes con su trabajo o con decisiones que la empresa ha tomado, entre otras cosas. </p>
+           		<p>SoHo hace hincapie en comunicacion de novedades y de toma de decisiones rapida, y la interrelacion entre los empleados, orientandonos mayormente a la comunicacion entre RRHH y funcionarios.</p>
+   
+       	<h:button value="Entrar" outcome="login" rendered="#{not authMb.logged}" class="btn btn-success"/>
+		<h:button value="Registrarse" outcome="register"  rendered="#{not authMb.logged}" class="btn btn-info"/>				
+        </div>
+        </article>
+    </section>
+
+	</h:form>
+
+</h:body>
+</html>

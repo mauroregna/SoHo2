@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html  
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>SoHo</title>
+	<h:outputStylesheet library="css" name="style.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</h:head>
+<h:body>
+<ui:include src="template.xhtml"></ui:include>
+<h:form class="form-horizontal" >
+<div class="col-sm-offset-1">
+		<nav>
+			<h:link value="Entrar" outcome="login" rendered="#{not authMb.logged}" />
+			<h:link value="Registrarse" outcome="register"  rendered="#{not authMb.logged}"/>
+			<h:button value="Mi Perfil" outcome="myprofile" rendered="#{authMb.logged}" class="btn btn-default"/>
+			<h:commandButton value="Salir" action="#{authMb.logout()}" rendered="#{authMb.logged}" class="btn btn-danger"/>
+		</nav>
+
+	<div class="form-group">
+	<h1>Bienvenido 
+		<h:outputText value="#{authMb.currentUser.name}"/> a la plataforma
+	</h1>
+	</div>
+<div class="form-group">
+		<label class="control-label col-md-2">Escriba su post </label>
+		<div class="col-sm-4">
+		<h:inputText value="#{postMb.content}" class="form-control input-xs" />
+		</div>
+		<h:commandButton action="#{postMb.create()}" value= "Postear" class="btn btn-info" >
+		</h:commandButton>
+</div>
+<br></br>
+<div class="form-group">
+		<label>Posteos</label>
+		<h:dataTable value="#{postMb.getPost()}" var="p" styleClass="table table-responsive">
+				<h:column>
+					#{p.username} dijo:
+				</h:column>
+				<h:column>
+					#{p.content}
+				</h:column>
+				<h:column>
+					#{p.create_at}
+				</h:column>
+		</h:dataTable>
+</div>	
+</div>
+</h:form>
+</h:body>
+</html>
