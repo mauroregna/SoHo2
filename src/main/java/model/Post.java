@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import javax.validation.constraints.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,11 +13,19 @@ public class Post {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	
 	private int id;
+	
+	@NotNull
+	@Size(min=2,max=255)
 	private String content;
+	
+	@NotNull
 	private int user_id;
+	
+	@NotNull
 	private String username;
+	
+	@NotNull
 	private Date create_at;
 	
 	public int getId() {

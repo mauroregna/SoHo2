@@ -1,5 +1,7 @@
 package view;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -19,13 +21,23 @@ public class RegisterMb {
 	private String password;
 	
 	public String create(){
+		try{
     	User user = new User();
     	user.setName(name);
     	user.setLastname(lastname);
     	user.setEmail(email);
     	user.setPassword(password);
     	userCntr.create(user);
-    	return "index";
+    	FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario creado correctamente",null);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        return "login?faces-redirect=true";
+		}catch(Exception e){
+			e.printStackTrace();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Faltan datos por completar",null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
+		
 	}
 	
 	public String getName() {

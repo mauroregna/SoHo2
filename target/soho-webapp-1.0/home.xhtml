@@ -22,34 +22,72 @@
 		</nav>
 
 	<div class="form-group">
-	<h1>Bienvenido 
-		<h:outputText value="#{authMb.currentUser.name}"/> a la plataforma
+	<h1>Hola 
+		<h:outputText value="#{authMb.currentUser.name}"/>. Bienvenido a la plataforma!!
 	</h1>
 	</div>
-<div class="form-group">
-		<label class="control-label col-md-2">Escriba su post </label>
-		<div class="col-sm-4">
-		<h:inputText value="#{postMb.content}" class="form-control input-xs" />
-		</div>
-		<h:commandButton action="#{postMb.create()}" value= "Postear" class="btn btn-info" >
-		</h:commandButton>
-</div>
-<br></br>
-<div class="form-group">
-		<label>Posteos</label>
-		<h:dataTable value="#{postMb.getPost()}" var="p" styleClass="table table-responsive">
-				<h:column>
-					#{p.username} dijo:
-				</h:column>
-				<h:column>
-					#{p.content}
-				</h:column>
-				<h:column>
-					#{p.create_at}
-				</h:column>
-		</h:dataTable>
-</div>	
 </div>
 </h:form>
+	
+		<h:form>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Escriba su comentario</h3>
+				</div>
+				<div class="panel-body">
+					<h:inputTextarea value="#{postMb.content}"
+						styleClass="form-control" id="postContent">
+					</h:inputTextarea>
+					<h:message for="postContent"></h:message>
+					<h:commandLink styleClass="btn btn-primary"
+						action="#{postMb.create()}">
+			    	Publicar
+			    	<f:ajax render="@form :postList :appMessages" execute="@form"></f:ajax>
+					</h:commandLink>
+				</div>
+			</div>
+		</h:form>
+		<h:panelGroup layout="block" id="postList">
+			<ui:repeat var="post" value="#{postMb.getPost()}">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<h:outputText value="#{post.username} dijo: " />
+							<small class="text-right"> <h:outputText value="#{post.create_at}">
+									<f:convertDateTime pattern="(dd/MM/yyyy HH:mm)" />
+								</h:outputText>
+							</small>
+						</h3>
+					</div>
+					<div class="panel-body">
+						<h:outputText value="#{post.content}" />
+					</div>
+					<ul class="list-group" id="commentList">
+							<ui:repeat var="comment" value="#{commentMb.listByPost(post)}">
+								<li class="list-group-item text-right">
+									<strong>
+										<h:outputText value="#{comment.user.name} comentó: " />
+									</strong>
+									<small>
+										<h:outputText value="#{comment.date}" >
+											<f:convertDateTime pattern="(dd/MM/yyyy HH:mm)" />
+										</h:outputText>
+									</small>
+									<h:outputText value="#{comment.content}" />
+								</li>
+							</ui:repeat>
+							<h:form>
+								<h:inputText value="#{commentMb.comment}" styleClass="form-control" />
+								<h:commandLink styleClass="btn btn-primary" action="#{commentMb.create(post)}" >
+								Comentar
+					
+								</h:commandLink>
+							</h:form>
+						</ul>
+				</div>
+			</ui:repeat>
+		</h:panelGroup>
+
+
 </h:body>
 </html>

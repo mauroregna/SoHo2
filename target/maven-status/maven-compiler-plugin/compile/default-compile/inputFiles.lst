@@ -1,8 +1,11 @@
+/home/mauro/proyects/soho-master/src/main/java/model/Comment.java
 /home/mauro/proyects/soho-master/src/main/java/model/Post.java
 /home/mauro/proyects/soho-master/src/main/java/filter/AuthFilter.java
+/home/mauro/proyects/soho-master/src/main/java/controller/CommentController.java
 /home/mauro/proyects/soho-master/src/main/java/view/RegisterMb.java
 /home/mauro/proyects/soho-master/src/main/java/controller/PostController.java
 /home/mauro/proyects/soho-master/src/main/java/view/PostMb.java
 /home/mauro/proyects/soho-master/src/main/java/controller/UserController.java
+/home/mauro/proyects/soho-master/src/main/java/view/CommentMb.java
 /home/mauro/proyects/soho-master/src/main/java/model/User.java
 /home/mauro/proyects/soho-master/src/main/java/view/AuthMb.java

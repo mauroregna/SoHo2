@@ -1,7 +1,10 @@
 controller/UserController.class
 filter/AuthFilter.class
+model/Comment.class
 model/User.class
 controller/PostController.class
+controller/CommentController.class
+view/CommentMb.class
 view/RegisterMb.class
 view/PostMb.class
 model/Post.class

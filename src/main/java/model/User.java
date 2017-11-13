@@ -2,7 +2,9 @@
 	
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.*;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,11 +14,27 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	 
 	private int id;
+	
+	@NotNull
+	@Size(min=2,max=30)
 	private String name;
+	
+	@NotNull
+	@Size(min=2,max=30)
 	private String lastname;
+	
+	@NotNull
+	@Column(unique=true)
+	@Size(min=2,max=30)
+	@Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+            message="{invalid.email}")
 	private String email;
+	
+	@NotNull
+	@Size(min=2,max=30)
 	private String password;
 	
 	public int getId() {
