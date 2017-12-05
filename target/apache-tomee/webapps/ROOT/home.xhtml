@@ -13,7 +13,7 @@
 <h:body>
 <ui:include src="template.xhtml"></ui:include>
 <h:form class="form-horizontal" >
-<div class="col-sm-offset-1">
+<div>
 		<nav>
 			<h:link value="Entrar" outcome="login" rendered="#{not authMb.logged}" />
 			<h:link value="Registrarse" outcome="register"  rendered="#{not authMb.logged}"/>
@@ -21,15 +21,14 @@
 			<h:commandButton value="Salir" action="#{authMb.logout()}" rendered="#{authMb.logged}" class="btn btn-danger"/>
 		</nav>
 
-	<div class="form-group">
+	<div>
 	<h1>Hola 
 		<h:outputText value="#{authMb.currentUser.name}"/>. Bienvenido a la plataforma!!
 	</h1>
 	</div>
 </div>
 </h:form>
-	
-		<h:form>
+		<h:form enctype="multipart/form-data">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Escriba su comentario</h3>
@@ -39,10 +38,11 @@
 						styleClass="form-control" id="postContent">
 					</h:inputTextarea>
 					<h:message for="postContent"></h:message>
+					<h:inputFile id="file" value="#{postMb.file}"/>
+					<h:message for="file"></h:message>
 					<h:commandLink styleClass="btn btn-primary"
 						action="#{postMb.create()}">
 			    	Publicar
-			    	<f:ajax render="@form :postList :appMessages" execute="@form"></f:ajax>
 					</h:commandLink>
 				</div>
 			</div>
@@ -52,42 +52,45 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							<h:outputText value="#{post.username} dijo: " />
-							<small class="text-right"> <h:outputText value="#{post.create_at}">
-									<f:convertDateTime pattern="(dd/MM/yyyy HH:mm)" />
+						<strong>
+							<h:outputText value="#{post.username} dijo" />
+							<small> <h:outputText value="#{post.create_at}">
+									<f:convertDateTime pattern="(dd/MM/yyyy HH:mm): " />
 								</h:outputText>
 							</small>
+						</strong>	
 						</h3>
 					</div>
 					<div class="panel-body">
-						<h:outputText value="#{post.content}" />
+						<h:outputText value="#{post.content}" /> <BR />
+						<img src="/image/#{post.image.path}" max-width="900px" max-height="600px" />
 					</div>
 					<ul class="list-group" id="commentList">
 							<ui:repeat var="comment" value="#{commentMb.listByPost(post)}">
 								<li class="list-group-item text-right">
 									<strong>
-										<h:outputText value="#{comment.user.name} comentó: " />
-									</strong>
+										<h:outputText value="#{comment.user.name} comentó" />
 									<small>
 										<h:outputText value="#{comment.date}" >
-											<f:convertDateTime pattern="(dd/MM/yyyy HH:mm)" />
+											<f:convertDateTime pattern="(dd/MM/yyyy HH:mm): " />
 										</h:outputText>
 									</small>
+									</strong>
+								</li>
+								<li class="list-group-item text-right">	
 									<h:outputText value="#{comment.content}" />
 								</li>
 							</ui:repeat>
-							<h:form>
-								<h:inputText value="#{commentMb.comment}" styleClass="form-control" />
+							<h:form><br />
+								<h3 class="panel-title">Realizar comentario</h3>
+								<h:inputText value="#{commentMb.comment}" styleClass="form-control" title="Comentar" />
 								<h:commandLink styleClass="btn btn-primary" action="#{commentMb.create(post)}" >
 								Comentar
-					
 								</h:commandLink>
 							</h:form>
 						</ul>
 				</div>
 			</ui:repeat>
 		</h:panelGroup>
-
-
 </h:body>
 </html>

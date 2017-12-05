@@ -1,40 +1,64 @@
 package view;
 
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Named;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
 
+import controller.ImageController;
 import controller.PostController;
 import view.AuthMb;
+import model.Image;
 import model.Post;
 
 @Named
-public class PostMb implements Serializable{
-	private static final long serialVersionUID = 1L;
+@MultipartConfig(location="/tmp",
+fileSizeThreshold=1024*1024, 
+maxFileSize=1024*1024*5,
+maxRequestSize=1024*1024*5*5)
+
+public class PostMb {
 	
 	@Inject
 	private PostController postCntr;
 	@Inject
 	private AuthMb auth;
+	@Inject 
+	private ImageController imgCntl;
 	
 	private int id;
 	private String content;
 	private int user_id;
 	private Date create_at;
+	private Part file;
+	private Image image;
 	
-	public String create(){
-		Post post = new Post();
-    	post.setContent(content);
-    	post.setUser_id(auth.getCurrentUser().getId());
-    	post.setUsername(auth.getCurrentUser().getName());
-    	post.setCreate_at(new Date());
-    	postCntr.create(post);
-    	return "home";
+	public void create(){
+		try{
+			image = null;
+			if(file != null && file.getSize() > 0 && file.getContentType().startsWith("image/")){
+				image = imgCntl.upload(file);
+			}
+			Post post = new Post();
+	    	post.setContent(content);
+	    	post.setUser_id(auth.getCurrentUser().getId());
+	    	post.setUsername(auth.getCurrentUser().getName());
+	    	post.setCreate_at(new Date());
+	    	post.setImage(image);
+	    	postCntr.create(post);
+	    	content = null;
+		}catch (Exception e){
+			e.printStackTrace();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error interno", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 	}
 	
 	public List<Post> getPost(){
@@ -93,6 +117,20 @@ public class PostMb implements Serializable{
 		this.create_at = create_at;
 	}
 	
+	public Part getFile() {
+		return file;
+	}
+
+	public void setFile(Part file) {
+		this.file = file;
+	}
 	
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+}
 
 }

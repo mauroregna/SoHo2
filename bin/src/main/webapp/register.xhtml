@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html  
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>SoHo</title>
+	<h:outputStylesheet library="css" name="style.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+	  <link rel="stylesheet"  href="/diseno/css/bootstrap.min.css" />
+  <link rel="stylesheet"  href="/diseno/css/bootstrap-theme.min.css" />
+  <link rel="stylesheet"  href="/diseno/css/style.css" />
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</h:head>
+<h:body>
+<ui:include src="template.xhtml"></ui:include>
+	<h1>Registrate</h1>
+<h:form class="form-horizontal">
+<div class="col-sm-offset-1">
+<div class="form-group">
+			<label class="control-label col-md-2">Email</label>
+			<div class="col-sm-4">
+			<h:inputText  label="Email" id="email" value="#{registerMb.email}" class="form-control input-xs" validatorMessage="Email incorrecto">
+			<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /></h:inputText>
+			<h:message for="email" errorClass="alert alert-error" style="color:red"/>
+			</div>
+</div>	
+<div class="form-group">
+			<label class="control-label col-md-2">Nombre</label>
+			<div class="col-sm-4">
+			<h:inputText label="Nombre" id="name" value="#{registerMb.name}" class="form-control input-xs">
+			<f:validateLength minimum="3" maximum="20"/></h:inputText>
+			<h:message for="name" errorClass="alert alert-error" style="color:red"/>		
+		</div>
+	</div>	
+<div class="form-group">
+			<label class="control-label col-md-2">Apellido</label>
+			<div class="col-sm-4">
+			<h:inputText label="Apellido" id="lastname" value="#{registerMb.lastname}" class="form-control input-xs" >
+			<f:validateLength minimum="4" maximum="20"/></h:inputText>
+			<h:message for="lastname" styleClass="alert alert-error" style="color:red"/>	
+			</div>
+		</div>
+<div class="form-group">
+			<label class="control-label col-md-2">Password</label>
+			<div class="col-sm-4">
+			<h:inputSecret label="Password" id="pass" value="#{registerMb.password}" class="form-control input-xs">
+			<f:validateLength minimum="4" maximum="30"/></h:inputSecret>
+			<h:message for="pass" errorClass="alert alert-error" style="color:red" />
+			</div>
+		</div>
+</div>
+<div class="col-sm-offset-4">
+		<h:commandButton action="#{registerMb.create}" class="btn btn-info" value="Registrar" /> 
+		<h:button outcome="index"  value="Salir" class="btn btn-danger" />
+</div>
+</h:form>
+</h:body>
+</html>

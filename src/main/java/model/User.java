@@ -4,10 +4,12 @@ package model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.validation.constraints.*;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class User {
@@ -36,6 +38,9 @@ public class User {
 	@NotNull
 	@Size(min=2,max=30)
 	private String password;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	private Image image;
 	
 	public int getId() {
 		return id;
@@ -67,12 +72,19 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public Image getImage() {
+		return image;
+	}
+	public void setImage(Image image) {
+		this.image = image;
+	}
 	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", lastname=" + lastname + ", email=" + email + ", password="
-				+ password + "]";
+				+ password + ", image=" + image + "]";
 	}
+	
 	
 		
 	}

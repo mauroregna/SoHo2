@@ -1,11 +1,15 @@
-controller/UserController.class
 filter/AuthFilter.class
 model/Comment.class
-model/User.class
 controller/PostController.class
 controller/CommentController.class
 view/CommentMb.class
 view/RegisterMb.class
 view/PostMb.class
 model/Post.class
+view/UserMb.class
+controller/UserController.class
+view/ImageMb.class
+model/Image.class
+model/User.class
 view/AuthMb.class
+controller/ImageController.class
