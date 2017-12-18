@@ -1,5 +1,7 @@
 package view;
 
+import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -11,6 +13,7 @@ import controller.ImageController;
 import controller.UserController;
 import view.AuthMb;
 import model.Image;
+import model.User;
 
 
 @Named
@@ -28,7 +31,9 @@ public class UserMb {
 	@Inject
 	private UserController usrCntl;
 	private Part file;
-	
+	private String password;
+	private String search;
+		
 	public void updateImageProfile(){
 		try {
 			Image img = null;
@@ -50,6 +55,14 @@ public class UserMb {
 		}
 	}
 	
+	public List<User> allUser(){
+		return usrCntl.allUser();
+	}
+	
+	public void changePassword(){
+		usrCntl.changePassword(auth.getCurrentUser().getId(), password);
+	}
+	
 	public Part getFile() {
 		return file;
 	}
@@ -57,5 +70,22 @@ public class UserMb {
 	public void setFile(Part file) {
 		this.file = file;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+	
 	
 }

@@ -16,7 +16,7 @@
 <h:body>
 <ui:include src="template.xhtml"></ui:include>
 	<h1>Registrate</h1>
-<h:form class="form-horizontal">
+<h:form class="form-horizontal" enctype="multipart/form-data">
 <div class="col-sm-offset-1">
 <div class="form-group">
 			<label class="control-label col-md-2">Email</label>
@@ -48,6 +48,13 @@
 			<h:inputSecret label="Password" id="pass" value="#{registerMb.password}" class="form-control input-xs">
 			<f:validateLength minimum="4" maximum="30"/></h:inputSecret>
 			<h:message for="pass" errorClass="alert alert-error" style="color:red" />
+			</div>
+		</div>
+<div class="form-group">
+			<label class="control-label col-md-2">Imagen Perfil</label>
+			<div class="col-sm-4">
+			<h:inputFile id="file" value="#{registerMb.file}" />
+			<h:message for="file"></h:message>
 			</div>
 		</div>
 </div>

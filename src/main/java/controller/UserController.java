@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 
 import model.User;
+import model.Followers;
 import model.Image;
 
 @Stateless
@@ -28,7 +29,20 @@ public class UserController {
 			q.setParameter("user_id", user_id);
 			q.setParameter("img", image);
 			q.executeUpdate();
-
+	}
+	
+	public void changePassword(int user_id, String password){
+		String jpql = "Update User u SET u.password = :password where u.id = :user_id";
+		TypedQuery<User> q = entityManager.createQuery(jpql, User.class);
+		q.setParameter("user_id", user_id);
+		q.setParameter("password", password);
+		q.executeUpdate();
+	}
+	
+	public List<User> allUser(){
+		String hql = "Select u From User u";
+		TypedQuery<User> q = entityManager.createQuery(hql,User.class);
+    	return q.getResultList(); 
 	}
 	
 	public User getAuthUser(String email,String password){
@@ -54,4 +68,32 @@ public class UserController {
     public User byId(int id){
         return entityManager.find(User.class, id);
     }	
+    
+	public void followUser(User user, User userFollow){
+		Followers f = new Followers();
+		f.setUser(user);
+		f.setUserFollow(userFollow);
+		entityManager.persist(f);
+	}
+	
+	public Followers existFollow (User user, User userFollow){
+		try{
+			Followers f = (Followers) entityManager
+	               .createQuery(
+	                           "SELECT f from Followers f where f.user = :user and f.userFollow = :userFollow")
+	               .setParameter("user", user)
+	               .setParameter("userFollow", userFollow).getSingleResult();
+	    			return f;
+			} catch (NoResultException e) {
+				return null;
+		}
+	}
+	
+	public void unfollowUser(User user, User userFollow){
+		String jpql = "DELETE FROM Followers f WHERE f.user = :user and f.userFollow = :userFollow";
+		TypedQuery<Followers> q = entityManager.createQuery(jpql, Followers.class);
+		q.setParameter("user", user);
+		q.setParameter("userFollow", userFollow);
+		q.executeUpdate();
+	}
 }

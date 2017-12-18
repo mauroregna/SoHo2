@@ -49,6 +49,8 @@ public class AuthFilter implements Filter{
 			servResp.sendRedirect("login.xhtml");
 		}else if(servReq.getRequestURI().equals("/myprofile.xhtml") && !authMb.isLogged()){
 			servResp.sendRedirect("login.xhtml");
+		}else if(servReq.getRequestURI().equals("/listUser.xhtml") && !authMb.isLogged()){
+			servResp.sendRedirect("login.xhtml");
 		}else if(publicPath.stream().anyMatch((pp) -> path.matches(pp))) {
 			chain.doFilter(req, resp);
 			return;

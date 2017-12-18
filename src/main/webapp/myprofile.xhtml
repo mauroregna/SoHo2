@@ -17,6 +17,7 @@
 			<h:link value="Entrar" outcome="login" rendered="#{not authMb.logged}" />
 			<h:link value="Registrarse" outcome="register"  rendered="#{not authMb.logged}"/>
 			<h:button value="Home" outcome="home"  rendered="#{authMb.logged}" class="btn btn-default"/>
+			<h:button value="Buscar Usuario" outcome="listUser"  rendered="#{authMb.logged}" class="btn btn-default"/>
 			<h:commandButton value="Salir" action="#{authMb.logout()}" rendered="#{authMb.logged}" class="btn btn-danger"/>
 		</nav>
 	<div>
@@ -38,6 +39,19 @@
 				</div>
 			</div>
 		</h:form>
+		<h:form>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<label>Nueva contraseña</label>
+					<h:inputSecret label="Password" id="pass" value="#{userMb.password}" >
+					<f:validateLength minimum="4" maximum="30"/></h:inputSecret>
+					<h:message for="pass" errorClass="alert alert-error" style="color:red" />
+					<h:commandLink styleClass="btn btn-primary" action="#{userMb.changePassword}">
+					 Cambiar contraseña			    		
+					</h:commandLink>
+				</div>
+			</div>	
+		</h:form>
 	<h:panelGroup layout="block" id="postList">
 			<ui:repeat var="post" value="#{postMb.getUserPost()}">
 				<div class="panel panel-default">
@@ -51,7 +65,8 @@
 						</h3>
 					</div>
 					<div class="panel-body">
-						<h:outputText value="#{post.content}" />
+						<h:outputText value="#{post.content}" /> <BR />
+						<img src="/image/#{post.image.path}" />
 					</div>
 					<ul class="list-group">
 							<ui:repeat var="comment" value="#{commentMb.listByPost(post)}">
@@ -69,6 +84,17 @@
 									<h:outputText value="#{comment.content}" />
 								</li>
 							</ui:repeat>
+							<h:form><br />
+								<h:commandLink styleClass="btn" action="#{likeMb.create(post)}" rendered="#{likeMb.existLike(post) == null}" >
+								Me Gusta
+								<f:ajax render="postList"></f:ajax>
+								</h:commandLink>
+								<h:commandLink styleClass="btn" action="#{likeMb.deleteLike(post)}" rendered="#{likeMb.existLike(post) != null}" >
+								Ya no me gusta
+								<f:ajax render="postList"></f:ajax>
+								</h:commandLink>
+								<h:outputText id="likePost" value="A #{likeMb.countLike(post)} personas les gusta" />
+							</h:form>
 							<h:form><br />
 								<h3 class="panel-title">Realizar comentario</h3>
 								<h:inputText value="#{commentMb.comment}" styleClass="form-control" />

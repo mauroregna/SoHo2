@@ -56,7 +56,7 @@ public class PostMb {
 	    	content = null;
 		}catch (Exception e){
 			e.printStackTrace();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error interno", null);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"La publicación no puede estar vacía", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}

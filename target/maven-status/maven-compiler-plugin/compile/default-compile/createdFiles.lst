@@ -4,12 +4,17 @@ controller/PostController.class
 controller/CommentController.class
 view/CommentMb.class
 view/RegisterMb.class
+model/LikePost.class
 view/PostMb.class
 model/Post.class
 view/UserMb.class
 controller/UserController.class
 view/ImageMb.class
 model/Image.class
+view/LikeMb.class
+view/FollowersMb.class
 model/User.class
+model/Followers.class
+controller/LikeController.class
 view/AuthMb.class
 controller/ImageController.class

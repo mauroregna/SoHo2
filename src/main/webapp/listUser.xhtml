@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html  
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>SoHo</title>
+	<h:outputStylesheet library="css" name="style.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</h:head>
+<h:body>
+<ui:include src="template.xhtml"></ui:include>
+<h:form>
+		<nav>
+			<h:link value="Entrar" outcome="login" rendered="#{not authMb.logged}" />
+			<h:link value="Registrarse" outcome="register"  rendered="#{not authMb.logged}"/>
+			<h:button value="Home" outcome="home"  rendered="#{authMb.logged}" class="btn btn-default"/>
+			<h:button value="Mi Perfil" outcome="myprofile"  rendered="#{authMb.logged}" class="btn btn-default"/>
+			<h:commandButton value="Salir" action="#{authMb.logout()}" rendered="#{authMb.logged}" class="btn btn-danger"/>
+		</nav>
+	<div>
+		<h1>Buscar usuario
+		</h1>
+	</div>
+</h:form>	
+	<h:form>
+		<h:inputText value="#{userMb.search}" />
+		<h:commandLink styleClass="btn btn-primary"
+		action="#{userMb.getSearchUser}">
+		Buscar usuario	    		
+		</h:commandLink>		
+	
+	<h:panelGroup layout="block" id="postList">
+			<h:dataTable  var="user" value="#{userMb.allUser()}" class="table table-striped table-bordered display responsive" cellspacing="0" width="100%" >
+				     <h:column>
+				      	<f:facet name="header">Nombre</f:facet>
+				     	<h:outputText value="#{user.name}" />
+				     </h:column>
+				     <h:column>
+				     	<f:facet name="header">Apellido</f:facet>
+				     	<h:outputText value="#{user.lastname}" />
+				     </h:column>
+				     <h:column>
+				     	<f:facet name="header">Email</f:facet>
+				  	 	<h:outputText value="#{user.email}" />
+				     </h:column>
+				     <h:column>
+				     	<f:facet name="header">Seguir</f:facet>
+				  	 	<h:commandLink styleClass="btn btn-primary" action="#{followersMb.followUser(user)}" rendered="#{followersMb.existFollow(user) == null}">
+							Seguir
+						</h:commandLink>
+						<h:commandLink styleClass="btn btn-primary" action="#{followersMb.unfollowUser(user)}" rendered="#{followersMb.existFollow(user) != null}">
+							Dejar de Seguir
+						</h:commandLink>
+				     </h:column>
+			</h:dataTable>
+	</h:panelGroup>
+	</h:form>
+</h:body>
+</html>

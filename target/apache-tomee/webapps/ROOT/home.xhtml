@@ -18,6 +18,7 @@
 			<h:link value="Entrar" outcome="login" rendered="#{not authMb.logged}" />
 			<h:link value="Registrarse" outcome="register"  rendered="#{not authMb.logged}"/>
 			<h:button value="Mi Perfil" outcome="myprofile" rendered="#{authMb.logged}" class="btn btn-default"/>
+			<h:button value="Buscar Usuario" outcome="listUser" rendered="#{authMb.logged}" class="btn btn-default"/>
 			<h:commandButton value="Salir" action="#{authMb.logout()}" rendered="#{authMb.logged}" class="btn btn-danger"/>
 		</nav>
 
@@ -63,9 +64,9 @@
 					</div>
 					<div class="panel-body">
 						<h:outputText value="#{post.content}" /> <BR />
-						<img src="/image/#{post.image.path}" max-width="900px" max-height="600px" />
-					</div>
-					<ul class="list-group" id="commentList">
+						<img src="/image/#{post.image.path}" />
+					</div>				
+					<ul class="list-group">
 							<ui:repeat var="comment" value="#{commentMb.listByPost(post)}">
 								<li class="list-group-item text-right">
 									<strong>
@@ -82,13 +83,24 @@
 								</li>
 							</ui:repeat>
 							<h:form><br />
+								<h:commandLink styleClass="btn" action="#{likeMb.create(post)}" rendered="#{likeMb.existLike(post) == null}" >
+								Me Gusta
+								<f:ajax render="postList"></f:ajax>
+								</h:commandLink>
+								<h:commandLink styleClass="btn" action="#{likeMb.deleteLike(post)}" rendered="#{likeMb.existLike(post) != null}" >
+								Ya no me gusta
+								<f:ajax render="postList"></f:ajax>
+								</h:commandLink>
+								<h:outputText id="likePost" value="A #{likeMb.countLike(post)} personas les gusta" />
+							</h:form>
+							<h:form ><br />
 								<h3 class="panel-title">Realizar comentario</h3>
 								<h:inputText value="#{commentMb.comment}" styleClass="form-control" title="Comentar" />
 								<h:commandLink styleClass="btn btn-primary" action="#{commentMb.create(post)}" >
 								Comentar
 								</h:commandLink>
 							</h:form>
-						</ul>
+					</ul>
 				</div>
 			</ui:repeat>
 		</h:panelGroup>
